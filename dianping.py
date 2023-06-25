@@ -6,9 +6,9 @@ import json
 from http.cookies import SimpleCookie
 
 USER_AGENT = """Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"""
-TOKEN = "eJxVT11rgzAU/S/3OWjid3xzpGOu1LJqA6P0wdo2Oqt1idW2o/99ETbY4ML5uOfAvV8g4z2EBGPsEATDQUIIxMCGBwh6pTde4HvUIj5xLIqg+O9R20Wwk5xBuAmIhwKLbCdjpfWGOA5GFOMt+kNtrGfKxDoCZd93KjTNcRyNfZW3XdUKozg3pirPnfnBjuk9idlsxpmI7FifBLraZFPVtSkiLpmMejI05j/Y/+qFfkaXVCVazQ6v1yxVjvo8rhYq4+t5IIbsZt0SvpZ3JYYo6upL/vbMzZN7kZVXyqZeXjtfKM7mok937zg5RQwXTy9LeHwDiIBYsw=="
-UUID = "760fb8e0-139f-0d8e-f387-9431bd3bca01.1687692011"
-COOKIE_STR = """WEBDFPID=9z6z01u9x05x5v461x6w78836xv21w89811u751390697958w898977x-2003052009201-1687692008489WIAKIGQ75613c134b6a252faa6802015be905512902; _lxsdk_cuid=188f248663bc8-0f64569e9a3f25-1b525634-13c680-188f248663bc8; _lxsdk=188f248663bc8-0f64569e9a3f25-1b525634-13c680-188f248663bc8; _hc.v=760fb8e0-139f-0d8e-f387-9431bd3bca01.1687692011; qruuid=e083625f-bfbd-44a4-97e5-4010d7069ef8; dplet=2745fc9aed923f038798e2229555b39f; dper=9e6001edecd1bbfedd350b1a9a24263ac5c764d595b603c60444fcb0e4072cc3fc845acc0f6b3abfc10d80b445198acf98e6c15a1b936af5e4bd9984bf2c375e; ll=7fd06e815b796be3df069dec7836c3df; ua=Jason%E5%AD%A6%E7%90%9B; ctu=a2bef1fdb8c4754c01ba9a51f8967f3b72aa6d909a0d4cbf5d79907d68aa7dda; Hm_lvt_602b80cf8079ae6591966cc70a3940e7=1687692057; s_ViewType=10; _lxsdk_s=188f248663b-5d2-fc3-bea%7C%7C81; Hm_lpvt_602b80cf8079ae6591966cc70a3940e7=1687692120"""
+TOKEN = "eJxd0V2PojAUBuD/0luJnAKF1mQvRtQRFnUUUWQyF6gEjXx0LIo62f++ZSKb3U1I+vT0bXsavtDZ2aMeBgADK+ianFEP4S50TaSgSsgVk1omY5SAZegK2v1TI7pOFbQ9rwao907kOtXwR1NYyPk7NgxQGMCH8hd1kF+TcWQEHaqKi56q1nXd3R/jgh+LtLsrc1UcSq6OcVVWqXW9ODN8dctItoTk1nzZbDWBKNjAskYYliKNTFkjTetEZwo2rUZYyvoWGAqmTc5gMse0RpRKWU9pAP+JtWLaH1lPETBb4TZHNFOexxoZ8l5Gv7vSWlnseVsr+ZxT8xw5xs+xaucT+StkVBzTQipxb0v/ZAg/0N888ww+vU0rX5/6kE3v9OYtVyPvcbzz/QQG9i0q3FmcRfdFnopwt7u5Hrg+IR0/K+uM8CqNPy9BHl02ZA4wtg/pdk243XfkcY+3BzX69uiwyaO8HHWSNV9s4zwWQdSZh7OJB+mA89XQHgaf0LfnsyA5HEPiJkUexetELaMsvGaLzfi1BqIKszhp/D4pxL3GjtWBWT8Qw5UbnV75efvzZfgyHmzDUPxAv34DwZys2A=="
+UUID = "8d27eeb2-2ff9-6e23-623d-04db68af466f.1687576608"
+COOKIE_STR = """fspop=test; s_ViewType=10; _lxsdk_cuid=188eb677635c8-0cec7b6a2bfa2a-1b525634-13c680-188eb677635c8; _lxsdk=188eb677635c8-0cec7b6a2bfa2a-1b525634-13c680-188eb677635c8; WEBDFPID=3u29955z86v8575uzzv8v7x21vz8y7v7811vy322157979582y45795y-2002936606867-1687576605393IKWMQSG75613c134b6a252faa6802015be905516671; _hc.v=8d27eeb2-2ff9-6e23-623d-04db68af466f.1687576608; dper=7e1ab37915101c8aa018afc7c5ef6ba1ae7b829238619fc6449100e4a5073b9ce126b1fff6e821ce4466826f1c47fe549d3184f874abb2381b53f7b86b1728df; qruuid=26b52a76-0445-4925-9f13-a3c9acdc39fc; cy=1; cye=shanghai; ll=7fd06e815b796be3df069dec7836c3df"""
 
 cookies = SimpleCookie()
 cookies.load(COOKIE_STR)
@@ -29,9 +29,13 @@ class BarItem(scrapy.Item):
 
 class DianPingSpider(scrapy.Spider):
     name = "dianping"
-    start_urls = ["https://www.dianping.com/shanghai/ch30/g133p5"]
+    start_urls = ["https://www.dianping.com/shanghai/ch30/g133"]
     count = 0
     page = 5
+
+    custom_delay = {
+        'DOWNLOAD_SPEED': 3
+    }
 
     def start_requests(self):
         yield self.make_request(
