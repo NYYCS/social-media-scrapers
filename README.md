@@ -1,3 +1,5 @@
+This repository was created as the solution to a take-home test for a data-sourcing engineer position
+
 The repository contains two scrapers
 - one fully functional scrapy spider for Dianping
 - one partially functional requests based spider for Xiaohongshu
